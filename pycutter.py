@@ -1,8 +1,9 @@
 import os
-import venv
 
 import click
 import git
+
+from command.managers import Pip
 
 APP_NAME = "pycutter"
 
@@ -23,7 +24,7 @@ def main(directory, manager_package):
     """
     click.echo("Start project")
     create_dir(directory)
-    create_venv(directory, manager_package)
+    Pip(directory).create_venv()
 
 
 def create_dir(directory):
@@ -51,13 +52,6 @@ def gitignore(directory):
         app_dir = os.path.dirname(os.path.realpath(__file__))
         app_gitignore = os.path.join(app_dir, ".gitignore")
         copyfile(app_gitignore, file_gitignore)
-
-
-def create_venv(directory, manager_package):
-    env_dir = os.path.join(directory, ".venv")
-    project = directory.split("/")[-1]
-    if manager_package == "pip":
-        venv.create(env_dir, prompt=project)
 
 
 if __name__ == "__main__":
