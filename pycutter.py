@@ -3,9 +3,18 @@ import os
 import click
 import git
 
+from command.ci import Travis
 from command.managers import Pip
 
 APP_NAME = "pycutter"
+
+manager_choices = {
+    "pip": Pip(),
+}
+
+ci_choices = {
+    "travis": Travis(),
+}
 
 
 @click.command()
@@ -18,13 +27,22 @@ APP_NAME = "pycutter"
     show_default=True,
     help="manager package to install dependences",
 )
-def main(directory, manager_package):
+@click.option(
+    "-c",
+    "--ci",
+    default="travis",
+    type=click.Choice(("travis",)),
+    show_default=True,
+    help="Contiuous integration service",
+)
+def main(directory, manager_package, ci):
     """
     Cookiecutter CLI to start projects Python
     """
     click.echo("Start project")
     create_dir(directory)
     create_venv(directory)
+    ci_choices[ci].config(directory)
 
 
 def create_dir(directory):

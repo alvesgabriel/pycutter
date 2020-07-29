@@ -30,14 +30,15 @@ class Pip(Manager):
             return reqs.split(success)[-1].strip("\n").split(" ")
 
     def write_requirements_file(self, libs, filename="requirements.txt", dev=False):
-        file_requirements = os.path.join(self.directory, filename)
-        with open(file_requirements, "w+b") as f:
-            if dev and not f.readlines():
-                f.write(b"-r requirements.txt\n\n")
-            for lib in libs:
-                index = lib.rfind("-")
-                dependence = f"{lib[:index]}=={lib[index+1:]}\n"
-                f.write(dependence.encode())
+        if libs:
+            file_requirements = os.path.join(self.directory, filename)
+            with open(file_requirements, "w+b") as f:
+                if dev and not f.readlines():
+                    f.write(b"-r requirements.txt\n\n")
+                for lib in libs:
+                    index = lib.rfind("-")
+                    dependence = f"{lib[:index]}=={lib[index+1:]}\n"
+                    f.write(dependence.encode())
 
     def write_flake8_file(self, line_length=120):
         file_flake8 = os.path.join(self.directory, ".flake8")
