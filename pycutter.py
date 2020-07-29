@@ -24,7 +24,7 @@ def main(directory, manager_package):
     """
     click.echo("Start project")
     create_dir(directory)
-    Pip(directory).create_venv()
+    create_venv(directory)
 
 
 def create_dir(directory):
@@ -52,6 +52,18 @@ def gitignore(directory):
         app_dir = os.path.dirname(os.path.realpath(__file__))
         app_gitignore = os.path.join(app_dir, ".gitignore")
         copyfile(app_gitignore, file_gitignore)
+
+
+def create_venv(directory):
+    click.echo("Creating venv")
+    pip = Pip(directory)
+    pip.create_venv()
+
+    click.echo("Instaling libs: %s" % ", ".join(pip.packages_default))
+    libs = pip.install_packages(pip.packages_default)
+
+    click.echo("Writing requirements.txt")
+    pip.write_requirements(libs)
 
 
 if __name__ == "__main__":

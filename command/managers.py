@@ -17,15 +17,21 @@ class Pip(Manager):
 
     def create_venv(self):
         if not os.path.isdir(self.env_dir):
-            venv.create(self.env_dir, prompt=self.project)
-        self._install_packages()
+            venv.create(self.env_dir, prompt=self.project, with_pip=True)
 
-    def _install_packages(self):
+    def install_packages(self, packages):
         python = os.path.join(self.env_dir, "bin", "python")
         reqs = subprocess.check_output(
-            [python, "-m", self.name, "install", *self.packages_default]
+            [python, "-m", self.name, "install", *packages]
         ).decode("utf-8")
         success = "Successfully installed "
         if success in reqs:
-            libs = reqs.split(success)[-1].split(" ")
-            print(libs)
+            return reqs.split(success)[-1].strip("\n").split(" ")
+
+    def write_requirements(self, libs, filename="requirements.txt"):
+        file_requirements = os.path.join(self.directory, filename)
+        with open(file_requirements, "a") as f:
+            for lib in libs:
+                index = lib.rfind("-")
+                dependence = f"{lib[:index]}=={lib[index+1:]}\n"
+                f.write(dependence)
