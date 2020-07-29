@@ -63,7 +63,16 @@ def create_venv(directory):
     libs = pip.install_packages(pip.packages_default)
 
     click.echo("Writing requirements.txt")
-    pip.write_requirements(libs)
+    pip.write_requirements_file(libs)
+
+    click.echo("Instaling libs dev: %s" % ", ".join(pip.packages_dev))
+    libs_dev = pip.install_packages(pip.packages_dev)
+
+    click.echo("Writing requirements.txt")
+    pip.write_requirements_file(libs_dev, filename="requirements-dev.txt", dev=True)
+
+    click.echo("Writing .flake8")
+    pip.write_flake8_file()
 
 
 if __name__ == "__main__":
