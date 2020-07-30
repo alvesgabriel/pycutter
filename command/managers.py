@@ -46,3 +46,9 @@ class Pip(Manager):
             f.writelines(
                 ("[flake8]\n", f"max-line-length={line_length}\n", "exclude=.venv\n")
             )
+
+
+def config_pyup(directory):
+    file_pyup = os.path.join(directory, ".pyup.yml")
+    with open(file_pyup, "w") as f:
+        f.write(["requirements", "\t- requirements.txt", "\t- requirements-dev.txt"])

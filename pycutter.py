@@ -4,7 +4,7 @@ import click
 import git
 
 from command.ci import Travis
-from command.managers import Pip
+from command.managers import Pip, config_pyup
 
 APP_NAME = "pycutter"
 
@@ -35,7 +35,13 @@ ci_choices = {
     show_default=True,
     help="Contiuous integration service",
 )
-def main(directory, manager_package, ci):
+@click.option(
+    "-p",
+    "--pyup",
+    is_flag=True,
+    help="Pyup keep your Python dependencies secure, up-to-date & compliant",
+)
+def main(directory, manager_package, ci, pyup):
     """
     Cookiecutter CLI to start projects Python
     """
@@ -43,6 +49,8 @@ def main(directory, manager_package, ci):
     create_dir(directory)
     create_venv(directory)
     ci_choices[ci].config(directory)
+    if pyup:
+        config_pyup(directory)
 
 
 def create_dir(directory):
