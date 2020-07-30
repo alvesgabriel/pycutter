@@ -76,7 +76,7 @@ def gitignore(directory):
         from shutil import copyfile
 
         app_dir = os.path.dirname(os.path.realpath(__file__))
-        app_gitignore = os.path.join(app_dir, "..", ".gitignore")
+        app_gitignore = os.path.join(app_dir, ".gitignore")
         copyfile(app_gitignore, file_gitignore)
 
 
