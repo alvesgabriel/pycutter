@@ -1,6 +1,8 @@
 import os
 import sys
 
+from . import TAB2
+
 
 class Travis:
     def __init__(self):
@@ -14,10 +16,10 @@ class Travis:
                 [
                     "language: python\n",
                     "python:\n",
-                    f"\t- {self.python_version}\n",
+                    f"{TAB2}- {self.python_version}\n",
                     "install:\n",
-                    "\t- pip install -r requirements-dev.txt\n",
+                    f"{TAB2}- pip install -r requirements-dev.txt\n",
                     "script:\n",
-                    "\t- flake8\n",
+                    f"{TAB2}- flake8\n",
                 ]
             )

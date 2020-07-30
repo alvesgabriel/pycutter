@@ -2,6 +2,8 @@ import os
 import subprocess
 import venv
 
+from . import TAB2
+
 
 class Manager:
     packages_default = "requests".split()
@@ -51,4 +53,10 @@ class Pip(Manager):
 def config_pyup(directory):
     file_pyup = os.path.join(directory, ".pyup.yml")
     with open(file_pyup, "w") as f:
-        f.write(["requirements", "\t- requirements.txt", "\t- requirements-dev.txt"])
+        f.writelines(
+            [
+                "requirements:\n",
+                f"{TAB2}- requirements.txt\n",
+                f"{TAB2}- requirements-dev.txt\n",
+            ]
+        )
