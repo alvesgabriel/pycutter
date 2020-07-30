@@ -1,3 +1,3 @@
 requirements:
-  - Pipenv
-  - Pipenv.lock
+  - Pipfile
+  - Pipfile.lock
