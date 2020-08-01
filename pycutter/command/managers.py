@@ -2,6 +2,8 @@ import os
 import subprocess
 import venv
 
+import click
+
 from . import TAB2
 
 
@@ -15,15 +17,36 @@ class Pip(Manager):
 
     def __init__(self, directory=os.getcwd()):
         self.directory = directory
-        self.project = self.directory.split("/")[-1]
-        self.env_dir = os.path.join(self.directory, ".venv")
+        self._project = self.directory.split("/")[-1]
+        self._env_dir = os.path.join(self.directory, ".venv")
+
+    def create(self):
+        click.echo("Creating venv")
+        self.create_venv()
+
+        click.echo("Instaling libs: %s" % ", ".join(self.packages_default))
+        libs = self.install_packages(self.packages_default)
+
+        click.echo("Writing requirements.txt")
+        self.write_requirements_file(libs)
+
+        click.echo("Instaling libs dev: %s" % ", ".join(self.packages_dev))
+        libs_dev = self.install_packages(self.packages_dev)
+
+        click.echo("Writing requirements.txt")
+        self.write_requirements_file(
+            libs_dev, filename="requirements-dev.txt", dev=True
+        )
+
+        click.echo("Writing .flake8")
+        self.write_flake8_file()
 
     def create_venv(self):
-        if not os.path.isdir(self.env_dir):
-            venv.create(self.env_dir, prompt=self.project, with_pip=True)
+        if not os.path.isdir(self._env_dir):
+            venv.create(self._env_dir, prompt=self._project, with_pip=True)
 
     def install_packages(self, packages):
-        python = os.path.join(self.env_dir, "bin", "python")
+        python = os.path.join(self._env_dir, "bin", "python")
         reqs = subprocess.check_output(
             [python, "-m", self.name, "install", *packages]
         ).decode("utf-8")
