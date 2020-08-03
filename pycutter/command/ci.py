@@ -21,5 +21,6 @@ class Travis:
                     f"{TAB2}- pip install -r requirements-dev.txt\n",
                     "script:\n",
                     f"{TAB2}- flake8\n",
+                    f"{TAB2}- pytest\n",
                 ]
             )
