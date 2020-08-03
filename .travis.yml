@@ -4,6 +4,9 @@ python:
 install:
   - pip install -q pipenv
   - pipenv install --dev
+  - pipenv install codecov
 script:
-  - flake8
-  - pytest pycutter
+  - pipenv run flake8
+  - pipenv run pytest pycutter --cov=pycutter
+after_success:
+  - pipenv run codecov

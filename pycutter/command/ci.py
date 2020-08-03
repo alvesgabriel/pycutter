@@ -18,9 +18,11 @@ class Travis:
                     "python:\n",
                     f"{TAB2}- {self.python_version}\n",
                     "install:\n",
-                    f"{TAB2}- pip install -r requirements-dev.txt\n",
+                    f"{TAB2}- pip install -r requirements-dev.txt codecov\n",
                     "script:\n",
                     f"{TAB2}- flake8\n",
                     f"{TAB2}- pytest\n",
+                    "after_success:\n",
+                    f"{TAB2}- codecov\n",
                 ]
             )
