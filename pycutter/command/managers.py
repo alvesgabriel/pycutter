@@ -9,7 +9,7 @@ from . import TAB2
 
 class Manager:
     packages_default = "requests".split()
-    packages_dev = "flake8 pytest".split()
+    packages_dev = "flake8 pytest pytest-cov".split()
 
 
 class Pip(Manager):
