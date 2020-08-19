@@ -18,7 +18,14 @@ ci_choices = {
 
 
 @click.command()
-@click.option("-d", "--directory", default=os.getcwd(), help="Project directory")
+@click.option(
+    "-d",
+    "--directory",
+    default=os.getcwd(),
+    # type=click.Path(),
+    show_default="current directory",
+    help="Project directory",
+)
 @click.option(
     "-m",
     "--manager-package",
