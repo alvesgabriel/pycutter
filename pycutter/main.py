@@ -22,7 +22,6 @@ ci_choices = {
     "-d",
     "--directory",
     default=os.getcwd(),
-    # type=click.Path(),
     show_default="current directory",
     help="Project directory",
 )

@@ -1,15 +1,6 @@
 import os
-import pytest
-import shutil
 
 from pycutter.command import vcs
-
-
-@pytest.fixture
-def directory():
-    dirname = "/tmp/xpto"
-    yield dirname
-    shutil.rmtree(dirname)
 
 
 def test_create_dir(directory):
