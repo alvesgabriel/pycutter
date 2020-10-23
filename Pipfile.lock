@@ -34,11 +34,10 @@
         },
         "gitpython": {
             "hashes": [
-                "sha256:2db287d71a284e22e5c2846042d0602465c7434d910406990d5b74df4afb0858",
-                "sha256:fa3b92da728a457dd75d62bb5f3eb2816d99a7fe6c67398e260637a40e3fafb5"
+                "sha256:58483ad99811321e3c0b52c8b2229ff517499229a4854752b7d128005986e409",
+                "sha256:f488d43600d7299567b59fe41497d313e7c1253a9f2a8ebd2df8af2a1151c71d"
             ],
-            "index": "pypi",
-            "version": "==3.1.7"
+            "version": "==3.1.10"
         },
         "smmap": {
             "hashes": [
